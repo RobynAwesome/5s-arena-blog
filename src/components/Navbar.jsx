@@ -1,7 +1,4 @@
-import { IKImage, IKContext } from "@imagekit/react";
-import { useState } from "react";
-
-const Navbar = () => {
+import { IKImage, IKUpload } from "imagekitio-react";
   const [open, setOpen] = useState(false);
 
   const imageKitEndpoint =
@@ -14,13 +11,12 @@ const Navbar = () => {
     <nav className="w-full h-16 md:h-20 flex items-center justify-between px-4">
       {/* LOGO */}
       <div className="flex items-center gap-4 text-2xl font-bold">
-        <IKContext urlEndpoint={imageKitEndpoint}>
-          <IKImage
+        <IKImage 
+            urlEndpoint={"https://ik.imagekit.io/mholkp6zok/"}
             path="/logo.png"
             className="w-8 h-8"
             alt="5s Arena Blog Logo"
           />
-        </IKContext>
         <span>5s Arena Blog</span>
       </div>
 
