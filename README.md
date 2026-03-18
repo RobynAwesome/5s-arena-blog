@@ -34,7 +34,7 @@ The easiest way to dep
 ---
 
 ## 🛠️ Tech Stack
-* **Backend:** PHP 8.x (Procedural & Secure)
+* **Backend:** JavaScript (Procedural & Secure)
 * **Database:** MonogoDB, MongoDBatlas
 * **Frontend:** HTML5, CSS3 (Custom Flexbox/Grid Layouts), JavaScript
 * **Design Assets:** IconScout Unicons, Google Fonts (Montserrat)
