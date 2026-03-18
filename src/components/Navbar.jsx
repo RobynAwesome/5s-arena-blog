@@ -1,4 +1,4 @@
-import { IKImage } from "imagekitio-react";
+import { IKImage, IKUpload } from "@imagekit/react";
 import { useState } from "react";
 
 const Navbar = () => {
