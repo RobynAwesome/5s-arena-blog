@@ -11,7 +11,7 @@ function Navbar() {
   const links = ["Home", "Trending", "Most Popular", "About"];
 
   return (
-    <nav className="w-full h-16 md:h-20 flex items-center justify-between px-4">
+    <div className="w-full h-16 md:h-20 flex items-center justify-between px-4">
     {/* LOGO */}
     <div className="flex items-center gap-4 text-2xl font-bold">
       <IKImage
@@ -28,15 +28,13 @@ function Navbar() {
         <div
          className="cursor-pointer text-4xl select-none"
          onClick={() => setOpen((prev) => !prev)}
-         aria-label="Toggle menu"
         >
          {open ? "X" : "☰"}
     </div>
-
     {/* MOBILE LINK LIST */}
         <div
          className={`w-full h-screen flex flex-col items-center justify-center absoulte top-16 gap-8 font-medium text-lg bg-green-700 transition-transform duration-300 ease-in-out z-50 ${
-         open ? "translate-x-0" : "translate-x-full"
+         open ? "-right-0" : "-right-[100%]"
          }`}
         >
             <a href="/">Home</a>
@@ -62,7 +60,7 @@ function Navbar() {
                   </button>
                 </a>
             </div>
-        </nav>
+        </div>
   );
 };
 
