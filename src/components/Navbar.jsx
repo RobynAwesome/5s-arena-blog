@@ -10,7 +10,17 @@ const Navbar = () => {
                 <span>5s Arena Blog</span>
             </div>
             {/* MOBILE MENU */}
-            <div className="md: hidden">M</div>
+            <div className="md: hidden">
+                {/* MOBILE BUTTON*/}
+                <div 
+                    className="cursor-pointer text-4xl"
+                    onClick={() => setOpen((prev) => !prev)}
+                >
+                    {open ? "X" : "☰"}
+            </div>
+            {/* MOBILE LINK LIST*/}
+            <div className=""></div> 
+            </div>    
             {/* DESKTOP MENU */}
             <div className="hidden md:flex">D</div>
         </div>
