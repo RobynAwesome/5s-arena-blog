@@ -8,12 +8,12 @@ import {
   Route,
   Link,
 } from "react-router-dom";
-i
+
 import Homepage from "./routes/Homepage.jsx";
 import PostListPage from "./routes/PostListPage.jsx";
 import Write from"./Write.jsx";
 import LoginPage from "./routes/LoginPage.jsx";
-import RegistePage from "./routes/RegistePage.jsx";
+import RegistePage from "./routes/RegisterPage.jsx";
 
 
 const router = createBrowserRouter ( [
