@@ -1,16 +1,9 @@
 import { useState } from "react";
 import { IKImage } from "imagekitio-react";
 
-function Navbar() {
-  const [open, setOpen] = useState(false);
-
-  const imageKitEndpoint =
-    import.meta.env.VITE_IK_URL_ENDPOINT ||
-    "https://ik.imagekit.io/default_fallback";
-
-  const links = ["Home", "Trending", "Most Popular", "About"];
-
-  return (
+const Navbar = () => {
+    const [open, setOpen] = useState(false);
+return (
     <div className="w-full h-16 md:h-20 flex items-center justify-between px-4">
     {/* LOGO */}
     <div className="flex items-center gap-4 text-2xl font-bold">
@@ -25,6 +18,7 @@ function Navbar() {
 
     {/* MOBILE MENU */}
     <div className="md:hidden">
+        {/* MOBILE BUTTON */}
         <div
          className="cursor-pointer text-4xl"
          onClick={() => setOpen((prev) => !prev)}
@@ -32,8 +26,8 @@ function Navbar() {
          {open ? "X" : "☰"}
     </div>
     {/* MOBILE LINK LIST */}
-        <div
-         className={`w-full h-screen flex flex-col items-center justify-center gap-8 font-medium text-lg absoulte top-16 font-medium text-lg bg-green-700 transition-transform duration-300 ease-in-out z-50 ${
+    <div
+         className={`w-full h-screen flex flex-col items-center justify-center gap-8 font-medium text-lg absolute top-16 bg-green-700 transition-transform ease-in-out ${
          open ? "-right-0" : "-right-[100%]"
          }`}
         >
