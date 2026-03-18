@@ -1,7 +1,7 @@
-const SinglePostpage = () => {
+const SinglePostPage = () => {
   return (
-    <div className=''>SinglePostpage</div>
+    <div className=''>SinglePostPage</div>
   )
 }
 
-export default SinglePostpage
+export default SinglePostPage
