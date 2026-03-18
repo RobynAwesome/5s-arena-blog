@@ -21,7 +21,8 @@ A modern MERN stack blog application built with **MongoDB, Express.js, React, an
 ---
 
 ## 🛠️ Tech Stack
-- **Frontend**: React, React Router, Axios, TailwindCSS/Material-UI  
+- **Frontend**: React, React Route, route-dom
+- TailwindCSS/Material-UI  
 - **Backend**: Node.js, Express.js  
 - **Database**: MongoDB with Mongoose  
 - **Authentication**: JWT, bcrypt  
@@ -34,14 +35,15 @@ The easiest way to dep
 
 ## 🛠️ Tech Stack
 * **Backend:** PHP 8.x (Procedural & Secure)
-* **Database:** MySQL (Relational Schema)
+* **Database:** MonogoDB, MongoDBatlas
 * **Frontend:** HTML5, CSS3 (Custom Flexbox/Grid Layouts), JavaScript
 * **Design Assets:** IconScout Unicons, Google Fonts (Montserrat)
 
 ---
+
 ## 🔮 Features
 - Email & SMS notification system  
-- Secure payment integration for consultation fees  
+- * **Secure payment** integration for consultation fees
 - Patient medical history tracking  
 - Multi-language support for global accessibility  
 - Mobile app development roadmap  
