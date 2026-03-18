@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { IKImage } from "imagekitio-react";
+import { Image } from "./image.jsx";
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
