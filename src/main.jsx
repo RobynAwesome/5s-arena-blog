@@ -7,42 +7,48 @@ import Write from "@/routes/Write.jsx";
 import LoginPage from "@/routes/LoginPage.jsx";
 import RegisterPage from "@/routes/RegisterPage.jsx";
 import SinglePostPage from "@/routes/SinglePostPage.jsx";
+import AboutPage from "@/routes/AboutPage.jsx";
+import NotFoundPage from "@/routes/NotFoundPage.jsx";
 import MainLayout from "@/layouts/MainLayout.jsx";
 
 const router = createBrowserRouter([
   {
-    element:<MainLayout />,
+    element: <MainLayout />,
     children: [
       {
-        path: "/", 
+        path: "/",
         element: <Homepage />,
       },
       {
-        path: "/posts", 
+        path: "/posts",
         element: <PostListPage />,
       },
       {
-        path: "/write", 
+        path: "/write",
         element: <Write />,
       },
       {
-        path: "/login", 
+        path: "/login",
         element: <LoginPage />,
       },
       {
-        path: "/register", 
+        path: "/register",
         element: <RegisterPage />,
       },
       {
-        path: "/:slug",   
+        path: "/about",
+        element: <AboutPage />,
+      },
+      {
+        path: "/:slug",
         element: <SinglePostPage />,
       },
       {
-        path: "*",  
-        element: <SinglePostPage />,
-      }
-    ]
-  }
+        path: "*",
+        element: <NotFoundPage />,
+      },
+    ],
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

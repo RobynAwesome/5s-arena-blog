@@ -1,5 +1,5 @@
 {
-  "name": "lamadevblogapp",
+  "name": "5s-arena-blog",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,9 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@imagekit/javascript": "^5.2.2",
-    "@imagekit/react": "^5.0.2",
-    "glob": "^13.0.6",
     "imagekitio-react": "^4.3.0",
     "react": "^18.x",
     "react-dom": "^18.x",
@@ -20,7 +17,6 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@tailwindcss/postcss": "^4.2.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^6.0.1",
