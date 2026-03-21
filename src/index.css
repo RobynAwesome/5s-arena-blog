@@ -9,6 +9,11 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
-.dark body, body.dark-body {
+body.dark-body {
   background-color: #1a1a2e;
+}
+
+/* Ensure smooth scroll */
+html {
+  scroll-behavior: smooth;
 }
