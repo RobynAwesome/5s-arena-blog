@@ -2,40 +2,347 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================
+   DESIGN SYSTEM — CSS VARIABLES
+   ============================================================ */
+:root {
+  --color-bg:        #030712;   /* gray-950 — page background */
+  --color-surface:   #111827;   /* gray-900 — card/panel backgrounds */
+  --color-surface-2: #1f2937;   /* gray-800 — input/secondary surfaces */
+  --color-border:    #374151;   /* gray-700 */
+  --color-green:     #22c55e;   /* green-500 — primary accent */
+  --color-green-dim: #16a34a;   /* green-600 — hover/pressed */
+  --color-cyan:      #06b6d4;   /* cyan-500 — info/special accent */
+  --color-white:     #f9fafb;   /* gray-50 — primary text */
+  --color-muted:     #6b7280;   /* gray-500 — secondary text */
+  --color-gold:      #f59e0b;   /* amber-500 — featured/trophy accents */
+}
+
+/* ============================================================
+   BASE TYPOGRAPHY
+   ============================================================ */
 body {
-  background-color: #e6e6e6;
+  background-color: var(--color-bg);
   width: 100vw;
   overflow-x: hidden;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Inter', 'Montserrat', sans-serif;
+  color: var(--color-white);
 }
 
 body.dark-body {
-  background-color: #1a1a2e;
+  background-color: var(--color-bg);
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-/* Hero background animation - slow Ken Burns zoom + pan */
-@keyframes heroBg {
-  0% {
-    transform: scale(1) translateX(0);
-  }
-  50% {
-    transform: scale(1.15) translateX(-3%);
-  }
-  100% {
-    transform: scale(1) translateX(0);
-  }
+h1 {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  letter-spacing: 0.05em;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 40px rgba(34, 197, 94, 0.15);
 }
 
-.animate-hero-bg {
-  animation: heroBg 20s ease-in-out infinite;
+h2, h3 {
+  font-family: 'Oswald', 'Impact', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
+
+/* ============================================================
+   ANIMISTA KEYFRAMES
+   ============================================================ */
+
+/* Hero background — slow Ken Burns zoom + pan */
+@keyframes heroBg {
+  0%   { transform: scale(1) translateX(0); }
+  50%  { transform: scale(1.15) translateX(-3%); }
+  100% { transform: scale(1) translateX(0); }
+}
+.animate-hero-bg { animation: heroBg 20s ease-in-out infinite; }
 
 /* Fade in up for modals */
 @keyframes fadeInUp {
-  0% { opacity: 0; transform: translateY(20px); }
+  0%   { opacity: 0; transform: translateY(20px); }
   100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up { animation: fadeInUp 0.5s ease both; }
+
+/* Slide-in from bottom — page section entry */
+@keyframes slide-in-bottom {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+.animate-slide-in-bottom { animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
+
+/* Scale-in center — modal / popup entry */
+@keyframes scale-in-center {
+  from { transform: scale(0.85); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+.animate-scale-in-center { animation: scale-in-center 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
+
+/* Flip-in horizontal — author rewards achievement cards */
+@keyframes flip-in-hor {
+  from { transform: rotateX(-80deg); opacity: 0; }
+  to   { transform: rotateX(0);      opacity: 1; }
+}
+.animate-flip-in { animation: flip-in-hor 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
+
+/* Text focus-in — hero title + page headings */
+@keyframes text-focus-in {
+  from { filter: blur(12px); opacity: 0; }
+  to   { filter: blur(0);    opacity: 1; }
+}
+.animate-text-focus-in { animation: text-focus-in 0.7s cubic-bezier(0.55, 0.085, 0.68, 0.53) both; }
+
+/* Bg-pan-left — animated gradient background */
+@keyframes bg-pan-left {
+  from { background-position: 100% center; }
+  to   { background-position: 0%   center; }
+}
+.animate-bg-pan {
+  animation: bg-pan-left 8s linear infinite alternate;
+  background-size: 200%;
+}
+
+/* Marquee — infinite horizontal scroll */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes marquee-reverse {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+.animate-marquee         { animation: marquee         20s linear infinite; }
+.animate-marquee-reverse { animation: marquee-reverse 20s linear infinite; }
+
+/* Pulse glow — live status dot */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 6px currentColor; }
+  50%       { box-shadow: 0 0 16px currentColor, 0 0 32px currentColor; }
+}
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+
+/* Shimmer sweep — button hover */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+/* Spin slow — football icon */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.animate-spin-slow { animation: spin-slow 8s linear infinite; }
+
+/* ============================================================
+   GLOBAL UTILITY CLASSES
+   ============================================================ */
+
+/* Gradient text — all primary headings */
+.gradient-text {
+  background: linear-gradient(135deg, #22c55e 0%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glowing green CTA button */
+.btn-primary {
+  background: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.4), 0 4px 15px rgba(0, 0, 0, 0.3);
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 200%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transition: left 0.5s ease;
+}
+.btn-primary:hover {
+  box-shadow: 0 0 35px rgba(16, 185, 129, 0.6), 0 8px 25px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px);
+}
+.btn-primary:hover::after { left: 100%; }
+
+/* LED Glossy button base — unique hue applied via inline style */
+.btn-led {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 6px 14px;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.btn-led::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 50%;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.25), transparent);
+  pointer-events: none;
+  border-radius: 8px 8px 0 0;
+}
+.btn-led:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.2);
+}
+
+/* Glassmorphism card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+}
+
+/* Section heading with green left bar */
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.section-heading::before {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 1.2em;
+  background: linear-gradient(to bottom, #22c55e, #06b6d4);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* Montserrat label / category badge */
+.label-tag {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+/* Post category badge colours */
+.badge-culture  { background: linear-gradient(135deg, #059669, #22c55e); }
+.badge-legends  { background: linear-gradient(135deg, #b45309, #f59e0b); }
+.badge-skills   { background: linear-gradient(135deg, #1d4ed8, #06b6d4); }
+.badge-tactics  { background: linear-gradient(135deg, #7c3aed, #a78bfa); }
+.badge-news     { background: linear-gradient(135deg, #be123c, #f43f5e); }
+.badge-video    { background: linear-gradient(135deg, #0f766e, #14b8a6); }
+.badge-default  { background: linear-gradient(135deg, #374151, #6b7280); }
+
+/* Ripple effect on cards/buttons */
+.ripple-effect {
+  position: relative;
+  overflow: hidden;
+}
+.ripple-effect::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  width: 0; height: 0;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
+}
+.ripple-effect:active::after {
+  width: 300px; height: 300px;
+  opacity: 0;
+}
+
+/* Status dot */
+.status-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.status-online  { background: #22c55e; box-shadow: 0 0 8px #22c55e; }
+.status-offline { background: #ef4444; box-shadow: 0 0 8px #ef4444; }
+.status-busy    { background: #eab308; box-shadow: 0 0 8px #eab308; }
+
+/* Nav link hover underline animation */
+.nav-link {
+  position: relative;
+  transition: color 0.2s ease;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 2px;
+  background: #22c55e;
+  transition: width 0.25s ease;
+  border-radius: 2px;
+}
+.nav-link:hover::after,
+.nav-link.active::after { width: 100%; }
+
+/* Skeleton loader */
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 0.8; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #1f2937 25%, #374151 50%, #1f2937 75%);
+  background-size: 200% 100%;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+/* Reading progress bar */
+#reading-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #22c55e, #06b6d4);
+  z-index: 9999;
+  transition: width 0.1s ease;
+}
+
+/* WhatsApp view mode — bubble styling */
+.whatsapp-bubble {
+  background: #005c4b;
+  border-radius: 8px 8px 8px 0;
+  padding: 10px 14px;
+  margin: 4px 0;
+  max-width: 85%;
+  line-height: 1.5;
+  position: relative;
+}
+
+/* TikTok view mode */
+.tiktok-view {
+  max-width: 28rem;
+  margin: 0 auto;
+  font-size: 1.25rem;
+  line-height: 1.8;
+}
+
+/* Facebook view mode card */
+.facebook-card {
+  background: #1c2b3a;
+  border: 1px solid #2d4a66;
+  border-radius: 12px;
+  padding: 16px;
 }
