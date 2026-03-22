@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
-import api from "@/services/api";
+import { useAuth } from "@/context/AuthContext";
 
 const quillModules = {
   toolbar: [
@@ -22,36 +22,85 @@ export default function Write() {
   const [coverImage, setCoverImage] = useState("");
   const [tags, setTags] = useState("");
   const [error, setError] = useState("");
-  const [submitting, setSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
+  const { user, isAuthor } = useAuth();
 
-  const handleSubmit = async (e) => {
+  if (!user) {
+    return (
+      <div className="max-w-3xl mx-auto px-4 py-20 text-center">
+        <p className="text-gray-500 dark:text-gray-400 mb-4">You need to be signed in to write posts.</p>
+        <button onClick={() => navigate("/login")} className="px-6 py-2 bg-green-600 text-white rounded-xl font-semibold">
+          Sign In
+        </button>
+      </div>
+    );
+  }
+
+  if (!isAuthor) {
+    return (
+      <div className="max-w-3xl mx-auto px-4 py-20 text-center">
+        <p className="text-gray-500 dark:text-gray-400 mb-4">Only authors and admins can write posts.</p>
+        <p className="text-gray-400 dark:text-gray-500 text-sm mb-6">Apply for the author program on your profile page.</p>
+        <button onClick={() => navigate("/profile")} className="px-6 py-2 bg-green-600 text-white rounded-xl font-semibold">
+          Go to Profile
+        </button>
+      </div>
+    );
+  }
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     setError("");
-    setSubmitting(true);
 
-    try {
-      const token = localStorage.getItem("token");
-      const postData = {
-        title,
-        category,
-        content,
-        img: coverImage,
-        tags: tags.split(",").map((t) => t.trim()).filter(Boolean),
-      };
-
-      const res = await api.post("/posts", postData, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      const slug = res.data.slug || res.data.title?.toLowerCase().replace(/\s+/g, "-");
-      navigate(`/${slug}`);
-    } catch (err) {
-      setError(err.response?.data?.message || "Failed to publish post. Please try again.");
-    } finally {
-      setSubmitting(false);
+    if (!title.trim() || !category || !content.trim()) {
+      setError("Please fill in all required fields.");
+      return;
     }
+
+    const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    const newPost = {
+      id: Date.now(),
+      slug,
+      title,
+      category,
+      content,
+      image: coverImage || "/postImages/postImg.jpeg",
+      tags: tags.split(",").map((t) => t.trim()).filter(Boolean),
+      author: { name: user.name, image: user.image || "/authors/Jackson Wayne.png" },
+      readingTime: `${Math.max(1, Math.ceil(content.replace(/<[^>]*>/g, "").split(/\s+/).length / 200))} min read`,
+      createdAt: new Date().toISOString(),
+      views: 0,
+      featured: false,
+    };
+
+    // Save to localStorage user posts
+    const stored = localStorage.getItem("5s_user_posts");
+    const userPosts = stored ? JSON.parse(stored) : [];
+    userPosts.unshift(newPost);
+    localStorage.setItem("5s_user_posts", JSON.stringify(userPosts));
+
+    // Also add to managed posts for admin
+    const managed = localStorage.getItem("5s_managed_posts");
+    if (managed) {
+      const managedPosts = JSON.parse(managed);
+      managedPosts.unshift({ id: newPost.id, slug, title, category, author: user.name, createdAt: newPost.createdAt, status: "published" });
+      localStorage.setItem("5s_managed_posts", JSON.stringify(managedPosts));
+    }
+
+    setSuccess(true);
+    setTimeout(() => navigate(`/${slug}`), 1500);
   };
+
+  if (success) {
+    return (
+      <div className="max-w-3xl mx-auto px-4 py-20 text-center">
+        <div className="text-green-500 text-5xl mb-4">&#10003;</div>
+        <h2 className="text-2xl font-bold text-green-900 dark:text-green-400 mb-2">Post Published!</h2>
+        <p className="text-gray-500 dark:text-gray-400">Redirecting to your post...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-12 dark:bg-gray-950 min-h-screen">
@@ -90,7 +139,7 @@ export default function Write() {
             <option value="Skills">Skills</option>
             <option value="Tactics">Tactics</option>
             <option value="5-a-Side">5-a-Side</option>
-            <option value="Women&apos;s Game">Women&apos;s Game</option>
+            <option value="Women's Game">Women&apos;s Game</option>
             <option value="Development">Development</option>
             <option value="Fitness">Fitness</option>
             <option value="Community">Community</option>
@@ -138,10 +187,9 @@ export default function Write() {
 
         <button
           type="submit"
-          disabled={submitting}
-          className="px-8 py-3 bg-green-700 hover:bg-green-600 text-white font-semibold rounded-lg transition-colors disabled:opacity-50"
+          className="px-8 py-3 bg-green-700 hover:bg-green-600 text-white font-semibold rounded-lg transition-colors"
         >
-          {submitting ? "Publishing..." : "Publish Post"}
+          Publish Post
         </button>
       </form>
     </div>
